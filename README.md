@@ -7,8 +7,6 @@ Unity 2019.4 LTS
 
 * Get Vuforia account, create license key and add key to Vuforia settings
 
-* Get 
-
 * Deploy scene "VuforiaScene_HL2" to HL2.
 
 * Run scene "VuforiaScene_AzureKinect" on PC with Azure Kinect plugged in. 
