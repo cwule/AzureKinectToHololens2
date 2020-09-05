@@ -3,17 +3,23 @@ using Photon.Pun;
 using Photon.Realtime;
 using System.IO;
 
+
+// automatically connects to a Photon room when the app starts (no lobby)
+// tries to join an existing room, if no room exists, create room
+
 public class PhotonConnect : MonoBehaviourPunCallbacks
 {
+    // only two players, HL2 application and PC application with AzureKinect
     private byte maxPlayersPerRoom = 2;
-    // Start is called before the first frame update
+
+    // this function configures all the Photon server settings and connects to server
     void Start()
     {
         PhotonNetwork.ConnectUsingSettings();
-        //PhotonNetwork.JoinRandomRoom();
-        //PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = this.maxPlayersPerRoom });
     }
 
+    // once the application is connected to the server, OnConnectedToMaster us automatically called
+    // try to join a room
     public override void OnConnectedToMaster()
     {
         // we don't want to do anything if we are not attempting to join a room. 
@@ -25,6 +31,7 @@ public class PhotonConnect : MonoBehaviourPunCallbacks
             PhotonNetwork.JoinRandomRoom();
     }
 
+    // if no room exists, create room
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
         Debug.Log("PUN Basics Tutorial/Launcher:OnJoinRandomFailed() was called by PUN. No random room available, so we create one.\nCalling: PhotonNetwork.CreateRoom");
@@ -33,6 +40,7 @@ public class PhotonConnect : MonoBehaviourPunCallbacks
         PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = this.maxPlayersPerRoom });
     }
 
+    // once room is joined, instantiate a player prefab
     public override void OnJoinedRoom()
     {
         Debug.Log("PUN Basics Tutorial/Launcher: OnJoinedRoom() called by PUN. Now this client is in a room.\nFrom here on, your game would be running.");

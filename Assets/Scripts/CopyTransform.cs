@@ -1,9 +1,14 @@
 ﻿using UnityEngine;
 using Photon.Pun;
 
+// Attached to an instantiated player
+// Searches for the Kinect Image Target and copies its transform
+
 public class CopyTransform : MonoBehaviourPunCallbacks
 {
+    // The azure kinect image target
     private Transform _imgTarg;
+
     void Start()
     {
         if (GameObject.Find("KinectImageTarget") != null)
