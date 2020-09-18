@@ -12,10 +12,14 @@ public class PhotonConnect : MonoBehaviourPunCallbacks
     // only two players, HL2 application and PC application with AzureKinect
     private byte maxPlayersPerRoom = 2;
 
+    // The gameobjects that this player wants to own, even if not server
+    public GameObject punObject1, punObject2, punObject3;
+
     // this function configures all the Photon server settings and connects to server
     void Start()
     {
         PhotonNetwork.ConnectUsingSettings();
+       
     }
 
     // once the application is connected to the server, OnConnectedToMaster us automatically called
@@ -45,6 +49,15 @@ public class PhotonConnect : MonoBehaviourPunCallbacks
     {
         Debug.Log("PUN Basics Tutorial/Launcher: OnJoinedRoom() called by PUN. Now this client is in a room.\nFrom here on, your game would be running.");
         PhotonNetwork.Instantiate(Path.Combine("Prefabs", "Player"), Vector3.zero, Quaternion.identity);
+
+        // takes over the ownership of the punObjects, so that they can be controlled locally
+        if (punObject1 != null)
+            punObject1.GetComponent<PhotonView>().RequestOwnership();
+        if (punObject2 != null)
+            punObject2.GetComponent<PhotonView>().RequestOwnership();
+        if (punObject3 != null)
+            punObject3.GetComponent<PhotonView>().RequestOwnership();
     }
+
 
 }

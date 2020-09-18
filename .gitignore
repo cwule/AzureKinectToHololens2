@@ -6,6 +6,10 @@
 [Aa]pp/
 Assets/AssetStoreTools*
 
+# files containing license keys
+PhotonServerSettings.asset
+VuforiaConfiguration.asset
+
 # Visual Studio cache directory
 .vs/
 
